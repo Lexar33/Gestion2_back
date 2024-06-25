@@ -51,7 +51,7 @@ public class TCompensacionHoras {
 
     @Column(name = "ESTADO")
     private Integer estado;
-/*
+
     @JoinColumn(name = "IDPERSONAL", referencedColumnName = "IDPERSONAL")
     @ManyToOne
     private TPersonal idpersonal;
@@ -63,6 +63,4 @@ public class TCompensacionHoras {
     @JoinColumn(name = "IDDOCUMENTOCOMP",foreignKey = @ForeignKey(name="FK_T_COMPEN_HORAS_T_DOCUMECOMP"))
     @ManyToOne
     private TDocumento iddocumentocomp;
-*/
-
 }

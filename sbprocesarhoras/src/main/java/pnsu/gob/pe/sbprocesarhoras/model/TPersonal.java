@@ -22,6 +22,7 @@ public class TPersonal {
     @Basic(optional = false)
     @Column(name = "IDPERSONAL")
     private Integer idpersonal;
+
     @Column(name = "IDTESTADO")
     private Integer idtestado;
     @Column(name = "IDTGRADOINSTRUCCION")
@@ -96,7 +97,8 @@ public class TPersonal {
     @OneToMany(mappedBy = "idpersonal")
     private List<TDocumento> tDocumentoList;
 */
-    @JoinColumn(name = "IDPERSONA", referencedColumnName = "IDPERSONA")
+    //@JoinColumn(name = "IDPERSONA", referencedColumnName = "IDPERSONA")
+    @JoinColumn(name = "IDPERSONA",foreignKey = @ForeignKey(name="FK_T_PERSON_REFERENCE_T_PERSON"))
     @ManyToOne
     private TPersona idpersona;
 }

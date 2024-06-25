@@ -100,6 +100,9 @@ public class TPersona {
     private String observacion;
     @Column(name = "ESTADO")
     private Integer estado;
+    /*
     @OneToMany(mappedBy = "idpersona")
     private List<TPersonal> tPersonalList;
+
+    */
 }
