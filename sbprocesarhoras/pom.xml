@@ -8,11 +8,14 @@
         <version>3.3.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>pnsu.gob.pe</groupId>
     <artifactId>sbprocesarhoras</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>sbprocesarhoras</name>
     <description>sbprocesarhoras</description>
+    <packaging>jar</packaging>
+
     <url/>
     <licenses>
         <license/>

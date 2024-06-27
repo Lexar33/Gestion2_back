@@ -32,34 +32,39 @@ public class taskService {
 
                     TPersonal IdPersonal= elist.getIdpersonal();
                     LocalDate fecha = util.convertToLocalDateViaMilisecond(elist.getFecha());
+                    String idCH= elist.getIdcompensacionhoras().toString();
 
                     LocalDateTime horaInicioSobre =util.convertToLocalDateTimeViaMilisecond(elist.getHorainicio());
                     LocalDateTime horaFinSobre =util.convertToLocalDateTimeViaMilisecond(elist.getHorafin());
 
                     List<TMarcacionPersonal> tMarcacionPersonal = marcPersonalService.listbyIdPersonalFecha(IdPersonal.getIdpersonal(),fecha);
-                    TMarcacionPersonal tMarca= tMarcacionPersonal.get(0);
+                    if (tMarcacionPersonal != null && !tMarcacionPersonal.isEmpty()){
+                        TMarcacionPersonal tMarca= tMarcacionPersonal.get(0);
 
-                    if (tMarca.getIngreso() != null && tMarca.getSalida() !=null) {
-                        LocalDateTime ingreso= util.convertToLocalDateTimeViaMilisecond(tMarca.getIngreso());
-                        LocalDateTime salida= util.convertToLocalDateTimeViaMilisecond(tMarca.getSalida());
+                        if (tMarca.getIngreso() != null && tMarca.getSalida() !=null) {
+                            LocalDateTime ingreso= util.convertToLocalDateTimeViaMilisecond(tMarca.getIngreso());
+                            LocalDateTime salida= util.convertToLocalDateTimeViaMilisecond(tMarca.getSalida());
 
-                        log.info("idpersonal:"+IdPersonal.getIdpersonal().toString()+" inicioSobre:"+horaInicioSobre.toString()+" finSobre:"+horaFinSobre.toString()+
-                                "ingreso:"+ingreso.toString()+" salida:"+salida.toString() );
+                            log.info("idpersonal:"+IdPersonal.getIdpersonal().toString()+" inicioSobre:"+horaInicioSobre.toString()+" finSobre:"+horaFinSobre.toString()+
+                                    "ingreso:"+ingreso.toString()+" salida:"+salida.toString() );
 
-                        if (horaInicioSobre.isAfter(ingreso) && horaFinSobre.isBefore(salida)){
+                            if (horaInicioSobre.isAfter(ingreso) && horaFinSobre.isBefore(salida)){
 
-                            log.info("==============================cumple==============================");
+                                log.info("==============================cumple==============================");
 
-                            Integer status=compHorasService.updateTComp(elist.getIdcompensacionhoras(),123);
-                            log.info(String.valueOf(status));
+                                Integer status=compHorasService.updateTComp(elist.getIdcompensacionhoras(),123);
+                                log.info(String.valueOf(status));
+
+                            }else {
+                                log.info("id "+idCH+" :existe un error, no cumple");
+                            }
 
                         }else {
-                            log.info("existe un error, no cumple");
+                            log.info("id "+idCH+" :no tiene ingreso o salida registrado");
                         }
+                    }else
+                        log.info("id "+idCH+" :el usuario no tiene marcacion en t_marcacion_personal");
 
-                    }else {
-                        log.info("no tiene ingreso o salida registrado");
-                    }
 
                 }
         );
@@ -67,35 +72,6 @@ public class taskService {
         for (TCompensacionHoras elist: listTCHoras){
 
             TPersonal IdPersonal= elist.getIdpersonal();
-            LocalDate fecha = util.convertToLocalDateViaMilisecond(elist.getFecha());
-
-            LocalDateTime horaInicioSobre =util.convertToLocalDateTimeViaMilisecond(elist.getHorainicio());
-            LocalDateTime horaFinSobre =util.convertToLocalDateTimeViaMilisecond(elist.getHorafin());
-
-            List<TMarcacionPersonal> tMarcacionPersonal = marcPersonalService.listbyIdPersonalFecha(IdPersonal.getIdpersonal(),fecha);
-            TMarcacionPersonal tMarca= tMarcacionPersonal.get(0);
-
-            if (tMarca.getIngreso() != null && tMarca.getSalida() !=null) {
-                LocalDateTime ingreso= util.convertToLocalDateTimeViaMilisecond(tMarca.getIngreso());
-                LocalDateTime salida= util.convertToLocalDateTimeViaMilisecond(tMarca.getSalida());
-
-                log.info("idpersonal:"+IdPersonal.getIdpersonal().toString()+" inicioSobre:"+horaInicioSobre.toString()+" finSobre:"+horaFinSobre.toString()+
-                        "ingreso:"+ingreso.toString()+" salida:"+salida.toString() );
-
-                if (horaInicioSobre.isAfter(ingreso) && horaFinSobre.isBefore(salida)){
-
-                    log.info("==============================cumple==============================");
-
-
-                }else {
-                    log.info("existe un error, no cumple");
-                }
-
-            }else {
-                log.info("no tiene ingreso o salida registrado");
-            }
-
-            //log.info(tMarcacionPersonal.toString());
 
         }
 
