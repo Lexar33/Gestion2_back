@@ -9,6 +9,7 @@ import java.net.URI;
 @Slf4j
 public class JavaWebSocketClient extends WebSocketClient {
 
+    public String message;
     public JavaWebSocketClient(URI serverUri){
         super(serverUri);
     }
@@ -20,9 +21,8 @@ public class JavaWebSocketClient extends WebSocketClient {
     }
 
     @Override
-    public String onMessage(String s) {
-
-        String message= s;
+    public void onMessage(String s) {
+        this.message = s;
         log.info("got: "+s);
 
     }

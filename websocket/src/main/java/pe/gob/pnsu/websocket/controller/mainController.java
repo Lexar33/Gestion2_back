@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RestController
@@ -20,14 +21,16 @@ public class mainController {
 
         client.send("{\"command\":\"getInfo\"}");
 
-
+        TimeUnit.SECONDS.sleep(1);
+        String message= client.message;
+        log.info(message);
         //client.closeBlocking();
+        client.closeBlocking();
 
         //log.info();
 
        // client.setAttachment();
-
-        return "API WEBSOCKET";
+        return "API WEBSOCKET" +'\n'+ message;
 
 
     }
