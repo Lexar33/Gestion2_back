@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="sbprocesarhoras" />
-        <module name="sbprocesahoras" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="sbprocesahoras" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
