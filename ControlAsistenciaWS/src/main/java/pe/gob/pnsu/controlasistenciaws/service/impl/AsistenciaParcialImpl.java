@@ -102,7 +102,7 @@ public class AsistenciaParcialImpl implements IAsistenciaParcial {
 
 
                         LocalDate lddesdeplusidays=LocalDate.from(lddesde.plusDays(i).atStartOfDay());
-                        log.info("lddesdeplusidays"+lddesdeplusidays.toString());
+                        log.info("lddesdeplusidays "+lddesdeplusidays.toString());
 
 
                         /************************************************************/
@@ -128,9 +128,10 @@ public class AsistenciaParcialImpl implements IAsistenciaParcial {
                         //FILTRA MARCACION DE PERSONAL POR DNI DE LA PERSONA
                         List<MarcacionPersonalDto> listMarcacionPersonalFiltrado = listMarcacionPersonal.stream()
                                 .filter((MarcacionPersonalDto t)
-                                        -> t.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().equals(lddesdeplusidays) &&
+                                        -> //localDate.ofInstant(t.getFecha().toInstant(), ZoneId.systemDefault())
+                                      // t.getFecha().toLocalDate()
+                                      //  .equals(lddesdeplusidays) &&
                                         t.getDocumentoidentidad().equals(temp.getDocumentoidentidad())).toList();
-
 
                         listMarcacionPersonal.removeAll(listMarcacionPersonalFiltrado);
 /*
