@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.IntFunction;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -79,13 +80,12 @@ public class AsistenciaParcialImpl implements IAsistenciaParcial {
 
 
 
-        RestResponse holaq = new RestResponse("hola", "prueba", "object");
 
         IntStream.iterate(0, i -> i + 1)
                 .limit(numOfDaysBetween)
                 .mapToObj((IntFunction<?>) i -> {
 
-
+                    log.info ("======================= dia: {} ====================",i);
                     listPersonal.forEach((VwPersonalDto temp) -> {
 
 
@@ -101,8 +101,8 @@ public class AsistenciaParcialImpl implements IAsistenciaParcial {
                         /************************************************************/
 
 
-                        LocalDate lddesdeplusidays=LocalDate.from(lddesde.plusDays(i).atStartOfDay(ZoneId.systemDefault()).toInstant());
-
+                        LocalDate lddesdeplusidays=LocalDate.from(lddesde.plusDays(i).atStartOfDay());
+                        log.info("lddesdeplusidays"+lddesdeplusidays.toString());
 
 
                         /************************************************************/
@@ -119,10 +119,28 @@ public class AsistenciaParcialImpl implements IAsistenciaParcial {
                                 ? dfechafincontrato.isAfter(lddesdeplusidays) || dfechafincontrato.isEqual(lddesdeplusidays)
                                 : true))))
                             :fechainicio.isEqual(lddesdeplusidays)){
-                            log.info("llegue hasta aca"+ fechainicio.toString());
+                            //log.info("llegue hasta aca"+ fechainicio.toString());
                         }
 
-                        log.info ("Ando por aca");
+
+
+
+                        //FILTRA MARCACION DE PERSONAL POR DNI DE LA PERSONA
+                        List<MarcacionPersonalDto> listMarcacionPersonalFiltrado = listMarcacionPersonal.stream()
+                                .filter((MarcacionPersonalDto t)
+                                        -> t.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().equals(lddesdeplusidays) &&
+                                        t.getDocumentoidentidad().equals(temp.getDocumentoidentidad())).toList();
+
+
+                        listMarcacionPersonal.removeAll(listMarcacionPersonalFiltrado);
+/*
+                        //FILTRA ASISTENCIA PARCIAL POR IDPERSONAL
+                        List<TControlAsistParcial> listControlAsistenciaParcialFiltrado = listControlAsistenciaParcial.stream()
+                                .filter((TControlAsistParcial t)
+                                        -> EAIUtil.formatoFechaOut.format(t.getFecha()).equals(EAIUtil.formatoFechaOut.format(Date.from(lddesde.plusDays(i).atStartOfDay(ZoneId.systemDefault()).toInstant()))) && t.getIdpersonal().getIdpersonal().equals(temp.getIdpersonal()))
+                                .collect(Collectors.toList());
+                        listControlAsistenciaParcial.removeAll(listControlAsistenciaParcialFiltrado);
+                        */
 
 
                     });
@@ -133,13 +151,11 @@ public class AsistenciaParcialImpl implements IAsistenciaParcial {
                     */
                     return null;
 
-                });
+                }).collect(Collectors.toList());
 
 
 
-
-
-
+        RestResponse holaq = new RestResponse("hola", "prueba", "object");
 
         return holaq;
 

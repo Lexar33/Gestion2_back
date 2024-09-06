@@ -20,7 +20,7 @@ import java.util.Optional;
 public class ControlAsistenciaController {
 
     @Autowired
-    IAsistenciaParcial oControlAsistenciaParcial;
+    IAsistenciaParcial oAsistenciaParcial;
 
 
     @RequestMapping(value = "/registrarcontrolasistenciaparcial", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
@@ -29,7 +29,7 @@ public class ControlAsistenciaController {
 
 
 
-        RestResponse rpta = oControlAsistenciaParcial.registrarcontrolasistenciaparcial(
+        RestResponse rpta = oAsistenciaParcial.registrarcontrolasistenciaparcial(
                 Optional.ofNullable(oRequestDto.getIdpersonal()).isPresent() ? oRequestDto.getIdpersonal() : "",
                 Optional.ofNullable(oRequestDto.getDocumentoidentidad()).isPresent() ? oRequestDto.getDocumentoidentidad() : "",
                 oRequestDto.getDesde(), oRequestDto.getHasta());
