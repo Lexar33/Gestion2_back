@@ -19,10 +19,10 @@ import java.util.Optional;
 @RestController
 public class ControlAsistenciaController {
 
-    @Autowired
-    IAsistenciaParcial oAsistenciaParcial;
+  //  @Autowired
+  //  IAsistenciaParcial oAsistenciaParcial;
 
-
+/*
     @RequestMapping(value = "/registrarcontrolasistenciaparcial", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody Map<String,Object> registrarcontrolasistenciaparcial(@Valid @RequestBody RequestParcialDto oRequestDto){
         Map<String, Object> map = new HashMap<>();
@@ -40,5 +40,7 @@ public class ControlAsistenciaController {
         map.put("Hola","jose");
         return map;
     }
+*/
+
 
 }

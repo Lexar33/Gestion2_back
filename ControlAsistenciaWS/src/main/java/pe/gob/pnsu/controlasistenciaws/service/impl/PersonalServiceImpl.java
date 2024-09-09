@@ -14,10 +14,13 @@ import pe.gob.pnsu.controlasistenciaws.model.TPersonal;
 import pe.gob.pnsu.controlasistenciaws.repo.IGenericRepo;
 import pe.gob.pnsu.controlasistenciaws.repo.IPersonalRepo;
 import pe.gob.pnsu.controlasistenciaws.service.IPersonalService;
+import pe.gob.pnsu.controlasistenciaws.util.EAIUtil;
 
 import javax.print.attribute.standard.DocumentName;
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +32,8 @@ import java.util.stream.Collectors;
 public class PersonalServiceImpl extends CRUDImpl<TPersonal, Integer> implements IPersonalService {
 
     private final IPersonalRepo repo;
+
+    private final EAIUtil util;
 
     @Override
     protected IGenericRepo<TPersonal, Integer> getRepo() {
@@ -94,30 +99,59 @@ public class PersonalServiceImpl extends CRUDImpl<TPersonal, Integer> implements
 
     @Override
     public List<MarcacionPersonalDto> listarMarcacionPersonal(LocalDate lddesde, LocalDate ldhasta) {
-        List<MarcacionPersonalDto> listDto = repo.listarMarcacionPersonal(lddesde, ldhasta).stream().map(
-                o -> new MarcacionPersonalDto(
-                        (int) o[0],
-                        (String) o[1],
-                        (String) o[2],
-                        (String) o[3],
-                        (Long) o[4],
-                        (String) o[5],
-                        (String) o[6],
-                        (Date) o[7],
-                        (Date) o[8],
-                        (String) o[9],
-                        (Date) o[10],
-                        (String) o[11],
-                        (Integer) o[12],
-                        (Integer) o[13],
-                        (Integer) o[14],
-                        (Long) o[15],
-                        (Date) o[16],
-                        (Date) o[17],
-                        (String) o[18],
-                        (String) o[19]
+/*
+        repo.listarMarcacionPersonal(lddesde, ldhasta).forEach(
+                o -> log.info(
+                        o[0].getClass().toString() + "\n" +
+                                o[1].getClass().toString() + "\n" +
+                                o[2].getClass().toString() + "\n" +
+                                o[3].getClass().toString() + "\n" +
+                                o[4].getClass().toString() + "\n" +
+                                o[5].getClass().toString() + "\n" +
+                                o[6].getClass().toString() + "\n" +
+                                o[7].getClass().toString() + "\n" + //date
+                                o[8].getClass().toString() + "\n" + //time
+                                o[9].getClass().toString() + "\n" +
+                                o[10].getClass().toString() + "\n" + //time
+                                o[11].getClass().toString() + "\n" +
+                                o[12].getClass().toString() + "\n" +
+                                o[13].getClass().toString() + "\n" +
+                                o[14].getClass().toString() + "\n" +
+                                o[15].getClass().toString() + "\n" +
+                                o[16].getClass().toString() + "\n" + //time
+                                o[17].getClass().toString() + "\n" + //time
+                                o[18].getClass().toString() + "\n" +
+                                o[19].getClass().toString() + "\n"
+                ));
+*/
 
-                )
+        List<MarcacionPersonalDto> listDto = repo.listarMarcacionPersonal(lddesde, ldhasta).stream().map(
+                o -> {
+
+                    return new MarcacionPersonalDto(
+                            (int) o[0],
+                            (String) o[1],
+                            (String) o[2],
+                            (String) o[3],
+                            (Long) o[4],
+                            (String) o[5],
+                            (String) o[6],
+                            util.convertToLocalDateFromSqlDate((java.sql.Date) o[7]),
+                            util.convertToLocalTimeFromSqlTime((java.sql.Time) o[8]),
+                            (String) o[9],
+                            util.convertToLocalTimeFromSqlTime((java.sql.Time) o[10]),
+                            (String) o[11],
+                            (Integer) o[12],
+                            (Integer) o[13],
+                            (Integer) o[14],
+                            (Long) o[15],
+                            util.convertToLocalTimeFromSqlTime((java.sql.Time) o[16]),
+                            util.convertToLocalTimeFromSqlTime((java.sql.Time) o[17]),
+                            (String) o[18],
+                            (String) o[19]
+                    );
+
+                }
         ).collect(Collectors.toList());
 
         log.info("Cantidad de listMarcacionPersonal {}", listDto.size());
@@ -140,7 +174,7 @@ public class PersonalServiceImpl extends CRUDImpl<TPersonal, Integer> implements
     }
 
     @Override
-     public List<DocumentoDto> listarDocumentoReporte(LocalDate lddesde, LocalDate ldhasta) {
+    public List<DocumentoDto> listarDocumentoReporte(LocalDate lddesde, LocalDate ldhasta) {
         List<DocumentoDto> listDto = repo.listarDocumentoReporte(lddesde, ldhasta).stream().map(
                 o -> new DocumentoDto(
                         (Integer) o[0],
@@ -159,7 +193,7 @@ public class PersonalServiceImpl extends CRUDImpl<TPersonal, Integer> implements
                         (Integer) o[13],
                         (Integer) o[14],
                         (String) o[15]
-            )
+                )
         ).collect(Collectors.toList());
         log.info("Cantidad de listDocumentos {}", listDto.size());
         log.info("===================================================");
@@ -189,6 +223,9 @@ public class PersonalServiceImpl extends CRUDImpl<TPersonal, Integer> implements
 
         return listDto;
     }
+
+
+
 
 
 }

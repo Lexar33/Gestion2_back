@@ -1,10 +1,12 @@
 package pe.gob.pnsu.controlasistenciaws.dto;
 
+import jakarta.ejb.Local;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 
@@ -20,12 +22,12 @@ public class MarcacionPersonalDto {
     private Long idmarcacionpersonal;
     private String dia;
     private String sfecha;
-    private Date horarioingreso;
-    private Date horariosalida;
-    private Date fecha;
-    private Date ingreso;
+    private LocalTime horarioingreso;
+    private LocalTime horariosalida;
+    private LocalDate fecha;
+    private LocalTime ingreso;
     private String sedeingreso;
-    private Date salida;
+    private LocalTime salida;
     private String sedesalida;
     private Integer minutotardanza;
     private Integer minutoextrasalida;
@@ -48,17 +50,17 @@ public class MarcacionPersonalDto {
                                 Long idmarcacionpersonal,
                                 String dia,
                                 String sfecha,
-                                Date fecha,
-                                Date ingreso,
+                                LocalDate fecha,
+                                LocalTime ingreso,
                                 String sedeingreso,
-                                Date salida,
+                                LocalTime salida,
                                 String sedesalida,
                                 Integer minutotardanza,
                                 Integer minutoextrasalida,
                                 Integer minutofaltasalida,
                                 Long jornada,
-                                Date horarioingreso,
-                                Date horariosalida,
+                                LocalTime horarioingreso,
+                                LocalTime horariosalida,
                                 String singreso,
                                 String ssalida
 
