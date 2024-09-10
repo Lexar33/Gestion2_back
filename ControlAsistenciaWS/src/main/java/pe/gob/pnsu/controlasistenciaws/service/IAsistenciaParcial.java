@@ -4,6 +4,6 @@ import pe.gob.pnsu.controlasistenciaws.util.RestResponse;
 
 public interface IAsistenciaParcial {
 
-    RestResponse registrarcontrolasistenciaparcial(String idpersonal, String documentoidentidad, String desde, String hasta);
+    RestResponse registrarcontrolasistenciaparcial(String desde, String hasta);
 
 }

@@ -2,11 +2,17 @@ package pe.gob.pnsu.controlasistenciaws.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Table(name="T_PERSONAL")
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TPersonal {
 
     @Id

@@ -24,11 +24,10 @@ public class ScheduledTask1 {
     public void reportCurrentTime() {
         log.info("/////////////////////////INICIA PROCESAMIENTO////////////////////////");
 
-        log.info("Every 1 minute - The time is now {}", dateFormat.format(new Date()));
+        log.info("Every 3 minutes - The time is now {}", dateFormat.format(new Date()));
 
-        //mainService.registrarcontrolasistenciaparcial("","","01/07/2024","05/09/2024");
-
-        mainService.registrarcontrolasistenciaparcial("","","20/08/2024","23/08/2024");
+        //mainService.registrarcontrolasistenciaparcial("01/01/2024","23/08/2024");
+        mainService.registrarcontrolasistenciaparcial("19/08/2024","23/08/2024");
 
 
         log.info("////////////////////////FINALIZA PROCESAMIENTO////////////////////////");

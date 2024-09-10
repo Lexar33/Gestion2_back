@@ -43,7 +43,7 @@ public class AsistenciaParcialImpl implements IAsistenciaParcial {
     PersonalWs oPersonalWS;
 */
     @Override
-    public RestResponse registrarcontrolasistenciaparcial(String idpersonal, String documentoidentidad, String desde, String hasta)
+    public RestResponse registrarcontrolasistenciaparcial(String desde, String hasta)
     {
 
         DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -87,6 +87,7 @@ public class AsistenciaParcialImpl implements IAsistenciaParcial {
                         //Date.from(lddesde.plusDays(i).atStartOfDay(ZoneId.systemDefault()).toInstant();
                         LocalDate diaAnalizado = LocalDate.from(lddesde.plusDays(i).atStartOfDay(ZoneId.systemDefault()));
                         String documentoIdentidad= temp.getDocumentoidentidad();
+                        Integer idpersonal= temp.getIdpersonal();
 
                         ////////////////////////////////////////////////////////
                         LocalDate fechaInicio = LocalDate.parse(temp.getFechainicio(),formatter);
@@ -119,22 +120,12 @@ public class AsistenciaParcialImpl implements IAsistenciaParcial {
                                     :true )
                                     : fechaInicio.isEqual(diaAnalizado)){
 
-                                    //log.info("LLegue hasta aca");
+
+
 
                             List<MarcacionPersonalDto> listMarcacionPersonalFiltrado = oFiltroService.filtrarListaMarcacion(listMarcacionPersonal,diaAnalizado,documentoIdentidad);
 
-                            log.info(String.valueOf(listMarcacionPersonalFiltrado.size()));
-
-
-                            /*
-                            //List<MarcacionPersonalDto> listMarcacionPErsonalFiltrado= listMarcacionPersonal.stream()
-                                    .filter((MarcacionPersonalDto t) -> t.getFecha().isEqual(diaAnalizado) && t.getDocumentoidentidad().equals(documentoidentidad))
-                                    .collect(Collectors.toList());
-
-                            //listMarcacionPersonal.removeAll(listMarcacionPErsonalFiltrado);
-
-*/
-//                                JSONArray arrayDocumentosJSON = new JSONArray();
+                            List<TControlAsistParcial> listControlAsistenciaParcialFiltrado = oFiltroService.filtrarControlAsistenciaParcial(listControlAsistenciaParcial,diaAnalizado,idpersonal);
 
 
 
