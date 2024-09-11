@@ -9,9 +9,14 @@ import java.util.Date;
 public class EAIUtil {
 
     public LocalDate convertToLocalDateViaMilisecond(Date dateToConvert) {
-        return Instant.ofEpochMilli(dateToConvert.getTime())
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
+
+        if (dateToConvert == null) {
+            return null;
+        } else {
+            return Instant.ofEpochMilli(dateToConvert.getTime())
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+        }
     }
 
     public LocalDateTime convertToLocalDateTimeViaMilisecond(Date dateToConvert) {
@@ -21,7 +26,7 @@ public class EAIUtil {
     }
 
     public LocalDate convertToLocalDateFromSqlDate(java.sql.Date datetoConvert) {
-        if (datetoConvert ==null)
+        if (datetoConvert == null)
             return null;
         else
             return datetoConvert.toLocalDate();

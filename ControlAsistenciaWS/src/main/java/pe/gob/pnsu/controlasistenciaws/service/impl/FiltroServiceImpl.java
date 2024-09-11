@@ -25,7 +25,7 @@ public class FiltroServiceImpl implements IFiltroService {
         //List<MarcacionPersonalDto> listMarcacion = new List<MarcacionPersonalDto>();
         List<MarcacionPersonalDto> listMarcacionPersonalFiltrado = listMarcacionPersonal.stream()
                 .filter((MarcacionPersonalDto t) -> t.getFecha().isEqual(diaAnalizado) && t.getDocumentoidentidad().equals(documentoidentidad))
-                .collect(Collectors.toList());
+                .toList();
 
         //List<MarcacionPersonalDto> lista = new ArrayList<MarcacionPersonalDto>(listMarcacionPersonal);
         //lista.removeAll(listMarcacionPersonalFiltrado);
@@ -46,7 +46,7 @@ public class FiltroServiceImpl implements IFiltroService {
     public List<TControlAsistParcial> filtrarControlAsistenciaParcial(List<TControlAsistParcial> listControlAsistenciaParcial, LocalDate diaAnalizado, Integer idpersonal) {
         List<TControlAsistParcial> listControlAsistenciaParcialFiltrado = listControlAsistenciaParcial.stream()
                 .filter((TControlAsistParcial t) -> util.convertToLocalDateViaMilisecond(t.getFecha()).isEqual(diaAnalizado) && t.getIdpersonal().getIdpersonal().equals(idpersonal))
-                .collect(Collectors.toList());
+                .toList();
 
         //log.info("Tamaño de lista control asist. parcial filtrado:"+String.valueOf(listControlAsistenciaParcialFiltrado.size())+"-");
         if (listControlAsistenciaParcialFiltrado.size()>=2)
